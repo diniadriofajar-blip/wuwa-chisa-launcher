@@ -3,330 +3,259 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Wuwa — Chisa Lumenlight Launcher (Full)</title>
+<title>Wuthering Waves • Chisa Lumenlight Launcher</title>
 <link rel="icon" href="data:,">
+
 <style>
-  /* Lumenlight glass + motion theme */
-  :root{
-    --bg0:#05101a;
-    --bg1:#071728;
-    --glass: rgba(255,255,255,0.04);
-    --accent1: linear-gradient(90deg,#5fe1ff,#8fc8ff);
-    --muted:#a9bfd0;
-    --card-border: rgba(255,255,255,0.06);
-  }
-  html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--muted);background:
-    radial-gradient(1200px 600px at 10% 10%, rgba(100,170,255,0.04), transparent 8%),
-    linear-gradient(180deg,var(--bg0),var(--bg1));-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:1100px;margin:28px auto;padding:20px;display:flex;gap:22px;align-items:stretch;}
-  .left{flex:1;min-width:340px;}
-  .right{width:420px;position:relative;}
-  .header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-  .logo{font-weight:800;color:#bff1ff;font-size:20px;letter-spacing:0.6px}
-  .subtitle{font-size:12px;color:var(--muted);opacity:0.9}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-        border-radius:14px;padding:14px;border:1px solid var(--card-border);backdrop-filter: blur(10px);box-shadow:0 10px 30px rgba(2,6,15,0.6);margin-bottom:14px;transition:transform .18s ease, box-shadow .18s ease;}
-  .card:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(40,120,200,0.12)}
-  .title{font-weight:700;color:#e6fbff;margin-bottom:6px}
-  .desc{font-size:13px;color:var(--muted);margin-bottom:10px}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-  .btn{appearance:none;border:none;padding:10px 12px;border-radius:10px;background:var(--accent1);color:#022033;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(70,160,220,0.12)}
-  .small{font-size:12px;padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--muted)}
-  .note{font-size:12px;color:var(--muted);opacity:0.85}
-  .waifu-card{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));backdrop-filter: blur(8px);height:100%;}
-  .waifu-img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;animation:fadeIn .9s ease forwards}
-  @keyframes fadeIn{to{opacity:1;transform:none}}
-  .meta{position:absolute;left:20px;bottom:18px;color:#eaffff;font-weight:700;text-shadow:0 6px 18px rgba(5,40,60,0.6)}
-  /* responsive */
-  @media (max-width:980px){
-    .wrap{flex-direction:column;padding:12px}
-    .right{width:100%}
-  }
-  /* subtle particles */
-  .particles{position:fixed;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0.25}
-  .p{position:absolute;border-radius:50%;background:linear-gradient(90deg,#78d5ff, #bfefff);filter: blur(12px);opacity:0.12}
+:root {
+  --bg0: #040b14;
+  --bg1: #061223;
+  --glass: rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.08);
+  --text: #d6eaff;
+  --accent: #6fe2ff;
+  --accent2: #9bd4ff;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1100px 600px at 10% 10%, rgba(120,200,255,0.08), transparent 30%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Floating particles */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.22;
+}
+.part {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #8bddff 0%, #3ebdff 60%, transparent 100%);
+  filter: blur(10px);
+  animation: drift 12s infinite ease-in-out alternate;
+}
+@keyframes drift {
+  from { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.5; }
+  to   { transform: translateY(-90px) translateX(50px) scale(1.3); opacity: 0.9; }
+}
+
+.container {
+  max-width: 1150px;
+  margin: 34px auto;
+  padding: 20px;
+  display: flex;
+  gap: 28px;
+}
+
+.left {
+  flex: 1;
+  z-index: 5;
+}
+
+.right {
+  width: 420px;
+  position: relative;
+  z-index: 5;
+  transform-style: preserve-3d;
+}
+
+/* Glass card */
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  margin-bottom: 20px;
+  transition: .25s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 50px rgba(100,200,255,0.2);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #c8f1ff;
+  margin-bottom: 6px;
+}
+.desc {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+}
+
+/* Neon buttons */
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #001a2e;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(120,200,255,0.25);
+  transition: .2s;
+}
+.btn:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+
+/* Waifu panel */
+.waifu-box {
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.7),
+    0 0 35px rgba(120,200,255,0.25);
+  position: relative;
+  animation: fadeIn 1.2s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.waifu {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform-origin: center;
+  transition: transform .25s ease;
+}
+.waifu-box:hover .waifu {
+  transform: scale(1.05);
+}
+
+.meta {
+  position: absolute;
+  bottom: 18px;
+  left: 20px;
+  font-weight: 700;
+  font-size: 17px;
+  text-shadow: 0 0 10px rgba(120,200,255,0.6);
+}
+
+.note {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+@media(max-width:980px) {
+  .container { flex-direction: column; }
+  .right { width: 100%; }
+}
 </style>
 </head>
+
 <body>
 
-<!-- particles layer -->
-<div class="particles" aria-hidden="true">
-  <div class="p" style="width:220px;height:220px;left:6%;top:18%;"></div>
-  <div class="p" style="width:140px;height:140px;left:78%;top:6%;"></div>
-  <div class="p" style="width:200px;height:200px;left:64%;bottom:8%;"></div>
+<!-- Particles -->
+<div class="particles">
+  <div class="part" style="width:180px;height:180px;left:5%;top:18%;animation-delay:0s;"></div>
+  <div class="part" style="width:130px;height:130px;left:80%;top:6%;animation-delay:1s;"></div>
+  <div class="part" style="width:200px;height:200px;left:70%;bottom:10%;animation-delay:2s;"></div>
 </div>
 
-<div class="wrap" role="application" aria-label="Wuwa Preset Launcher — Chisa Lumenlight">
+<div class="container">
+
   <div class="left">
-    <div class="header">
-      <div>
-        <div class="logo">Wuthering Waves • Preset Launcher</div>
-        <div class="subtitle">Chisa Lumenlight Edition — fancy mode</div>
-      </div>
-    </div>
-
-    <div class="card" role="region" aria-label="Primary presets">
+    <div class="card">
       <div class="title">Quick presets</div>
-      <div class="desc">Tap a preset — file will download to your Downloads folder. Then open FV File Explorer → Downloads → Copy → Paste → Overwrite <code>ClientGraphicsConfig.json</code>.</div>
-
-      <div class="grid" id="preset-grid">
-        <!-- buttons generated by JS -->
+      <div class="desc">
+        Tap preset → auto-download to your Downloads folder.<br>
+        Then open FV File Explorer → Copy → Paste to:<br>
+        <code>Android/data/com.kurogame.wutheringwaves/files/Config/ClientGraphicsConfig.json</code>
       </div>
-      <div style="height:6px"></div>
-      <div class="note">Tip: After applying, restart the game if you see no change.</div>
+
+      <div class="grid" id="preset-grid"></div>
+
+      <div class="note">Restart game if no visual change.</div>
     </div>
 
     <div class="card">
       <div class="title">Advanced tips</div>
-      <div class="desc">If you want maximum sharpness with less blur, use RenderScale 110–125% and SharpenIntensity 0.45–0.55. If device gets hot, switch to BatterySaver or AntiStutter.</div>
-      <div style="margin-top:10px;">
-        <button class="small" onclick="showHow()">How to apply (FV File Explorer)</button>
-        <button class="small" style="margin-left:8px" onclick="downloadAll()">Download all as zip</button>
+      <div class="desc">
+        For ultra sharp visuals: RenderScale 110–125% + SharpenIntensity 0.45–0.55.<br>
+        For cooler temps: use BatterySaver or AntiStutter.
       </div>
+      <button class="btn" style="width:100%;margin-top:8px;" onclick="downloadAll()">Download ALL presets</button>
     </div>
-
   </div>
 
   <div class="right">
-    <div class="waifu-card" role="img" aria-label="Chisa artwork panel">
-      <!-- Placeholder image: replace URL in the src with your preferred Chisa image -->
-      <img id="waifu" class="waifu-img" alt="Chisa artwork" src="https://i.imgur.com/7HvfO4W.png">
+    <div class="waifu-box">
+      <img class="waifu"
+        src="https://raw.githubusercontent.com/diniadriofajar-blip/wuwa-chisa-launcher/main/chisa.png"
+        alt="Chisa image">
       <div class="meta">Chisa • Lumenlight</div>
     </div>
   </div>
+
 </div>
 
-<!-- hidden download helper -->
-<a id="dl" style="display:none"></a>
 
 <script>
-/* Presets embedded */
 const presets = {
-"Balance.json":`{
-  "RenderScale":1.10,
-  "TAASharpen":true,
-  "SharpenIntensity":0.38,
-  "ScreenPercentage":110,
-  "UpsampleQuality":2,
-  "ShadowQuality":2,
-  "VolumetricQuality":2,
-  "ModelQuality":3,
-  "TextureQuality":3,
-  "EnvironmentQuality":3,
-  "ParticleQuality":3,
-  "SSRQuality":2,
-  "VegetationQuality":3,
-  "PostProcessQuality":3,
-  "FrameRate":60,
-  "VSync":false,
-  "MotionBlur":false,
-  "DynamicBlur":false,
-  "TemperatureControl":1
-}`,
-
-"UltraSharp.json":`{
-  "RenderScale":1.25,
-  "TAASharpen":true,
-  "SharpenIntensity":0.55,
-  "ScreenPercentage":125,
-  "UpsampleQuality":3,
-  "ShadowQuality":3,
-  "VolumetricQuality":2,
-  "ModelQuality":3,
-  "TextureQuality":3,
-  "EnvironmentQuality":3,
-  "ParticleQuality":3,
-  "SSRQuality":3,
-  "VegetationQuality":3,
-  "PostProcessQuality":3,
-  "FrameRate":60,
-  "VSync":false,
-  "MotionBlur":false,
-  "DynamicBlur":false,
-  "TemperatureControl":0
-}`,
-
-"120FPS.json":`{
-  "RenderScale":1.00,
-  "TAASharpen":true,
-  "SharpenIntensity":0.35,
-  "ScreenPercentage":100,
-  "UpsampleQuality":2,
-  "ShadowQuality":1,
-  "VolumetricQuality":1,
-  "ModelQuality":2,
-  "TextureQuality":3,
-  "EnvironmentQuality":2,
-  "ParticleQuality":2,
-  "SSRQuality":1,
-  "VegetationQuality":2,
-  "PostProcessQuality":2,
-  "FrameRate":120,
-  "VSync":false,
-  "MotionBlur":false,
-  "DynamicBlur":false,
-  "TemperatureControl":2
-}`,
-
-"BatterySaver.json":`{
-  "RenderScale":0.90,
-  "TAASharpen":true,
-  "SharpenIntensity":0.40,
-  "ScreenPercentage":90,
-  "UpsampleQuality":1,
-  "ShadowQuality":1,
-  "VolumetricQuality":1,
-  "ModelQuality":2,
-  "TextureQuality":2,
-  "EnvironmentQuality":2,
-  "ParticleQuality":1,
-  "SSRQuality":1,
-  "VegetationQuality":1,
-  "PostProcessQuality":1,
-  "FrameRate":45,
-  "VSync":false,
-  "MotionBlur":false,
-  "DynamicBlur":false,
-  "TemperatureControl":3
-}`,
-
-"AntiStutter.json":`{
-  "RenderScale":1.00,
-  "TAASharpen":true,
-  "SharpenIntensity":0.32,
-  "ScreenPercentage":100,
-  "UpsampleQuality":2,
-  "ShadowQuality":1,
-  "VolumetricQuality":1,
-  "ModelQuality":2,
-  "TextureQuality":3,
-  "EnvironmentQuality":2,
-  "ParticleQuality":2,
-  "SSRQuality":1,
-  "VegetationQuality":2,
-  "PostProcessQuality":2,
-  "FrameRate":60,
-  "VSync":true,
-  "MotionBlur":false,
-  "DynamicBlur":false,
-  "TemperatureControl":2
-}`,
-
-"Cinematic.json":`{
-  "RenderScale":1.35,
-  "TAASharpen":true,
-  "SharpenIntensity":0.60,
-  "ScreenPercentage":135,
-  "UpsampleQuality":3,
-  "ShadowQuality":3,
-  "VolumetricQuality":3,
-  "ModelQuality":3,
-  "TextureQuality":3,
-  "EnvironmentQuality":3,
-  "ParticleQuality":3,
-  "SSRQuality":3,
-  "VegetationQuality":3,
-  "PostProcessQuality":3,
-  "FrameRate":60,
-  "VSync":true,
-  "MotionBlur":false,
-  "DynamicBlur":false,
-  "TemperatureControl":0
-}`,
-
-"Hybrid.json":`{
-  "RenderScale":1.18,
-  "TAASharpen":true,
-  "SharpenIntensity":0.48,
-  "ScreenPercentage":118,
-  "UpsampleQuality":3,
-  "ShadowQuality":2,
-  "VolumetricQuality":2,
-  "ModelQuality":3,
-  "TextureQuality":3,
-  "EnvironmentQuality":3,
-  "ParticleQuality":2,
-  "SSRQuality":2,
-  "VegetationQuality":3,
-  "PostProcessQuality":3,
-  "FrameRate":60,
-  "VSync":false,
-  "MotionBlur":false,
-  "DynamicBlur":false,
-  "TemperatureControl":1
-}`,
-
-"NightMode.json":`{
-  "RenderScale":1.20,
-  "TAASharpen":true,
-  "SharpenIntensity":0.50,
-  "ScreenPercentage":120,
-  "UpsampleQuality":3,
-  "ShadowQuality":3,
-  "VolumetricQuality":3,
-  "ModelQuality":3,
-  "TextureQuality":3,
-  "EnvironmentQuality":3,
-  "ParticleQuality":3,
-  "SSRQuality":3,
-  "VegetationQuality":3,
-  "PostProcessQuality":3,
-  "FrameRate":60,
-  "VSync":true,
-  "MotionBlur":false,
-  "DynamicBlur":false,
-  "TemperatureControl":0
-}`
+"Balance.json":`{ "RenderScale":1.10,"TAASharpen":true,"SharpenIntensity":0.38,"ScreenPercentage":110,"UpsampleQuality":2,"ShadowQuality":2,"VolumetricQuality":2,"ModelQuality":3,"TextureQuality":3,"EnvironmentQuality":3,"ParticleQuality":3,"SSRQuality":2,"VegetationQuality":3,"PostProcessQuality":3,"FrameRate":60,"VSync":false,"MotionBlur":false,"DynamicBlur":false,"TemperatureControl":1 }`,
+"UltraSharp.json":`{ "RenderScale":1.25,"TAASharpen":true,"SharpenIntensity":0.55,"ScreenPercentage":125,"UpsampleQuality":3,"ShadowQuality":3,"VolumetricQuality":2,"ModelQuality":3,"TextureQuality":3,"EnvironmentQuality":3,"ParticleQuality":3,"SSRQuality":3,"VegetationQuality":3,"PostProcessQuality":3,"FrameRate":60,"VSync":false,"MotionBlur":false,"DynamicBlur":false,"TemperatureControl":0 }`,
+"120FPS.json":`{ "RenderScale":1.00,"TAASharpen":true,"SharpenIntensity":0.35,"ScreenPercentage":100,"UpsampleQuality":2,"ShadowQuality":1,"VolumetricQuality":1,"ModelQuality":2,"TextureQuality":3,"EnvironmentQuality":2,"ParticleQuality":2,"SSRQuality":1,"VegetationQuality":2,"PostProcessQuality":2,"FrameRate":120,"VSync":false,"MotionBlur":false,"DynamicBlur":false,"TemperatureControl":2 }`,
+"BatterySaver.json":`{ "RenderScale":0.90,"TAASharpen":true,"SharpenIntensity":0.40,"ScreenPercentage":90,"UpsampleQuality":1,"ShadowQuality":1,"VolumetricQuality":1,"ModelQuality":2,"TextureQuality":2,"EnvironmentQuality":2,"ParticleQuality":1,"SSRQuality":1,"VegetationQuality":1,"PostProcessQuality":1,"FrameRate":45,"VSync":false,"MotionBlur":false,"DynamicBlur":false,"TemperatureControl":3 }`,
+"AntiStutter.json":`{ "RenderScale":1.00,"TAASharpen":true,"SharpenIntensity":0.32,"ScreenPercentage":100,"UpsampleQuality":2,"ShadowQuality":1,"VolumetricQuality":1,"ModelQuality":2,"TextureQuality":3,"EnvironmentQuality":2,"ParticleQuality":2,"SSRQuality":1,"VegetationQuality":2,"PostProcessQuality":2,"FrameRate":60,"VSync":true,"MotionBlur":false,"DynamicBlur":false,"TemperatureControl":2 }`,
+"Cinematic.json":`{ "RenderScale":1.35,"TAASharpen":true,"SharpenIntensity":0.60,"ScreenPercentage":135,"UpsampleQuality":3,"ShadowQuality":3,"VolumetricQuality":3,"ModelQuality":3,"TextureQuality":3,"EnvironmentQuality":3,"ParticleQuality":3,"SSRQuality":3,"VegetationQuality":3,"PostProcessQuality":3,"FrameRate":60,"VSync":true,"MotionBlur":false,"DynamicBlur":false,"TemperatureControl":0 }`,
+"Hybrid.json":`{ "RenderScale":1.18,"TAASharpen":true,"SharpenIntensity":0.48,"ScreenPercentage":118,"UpsampleQuality":3,"ShadowQuality":2,"VolumetricQuality":2,"ModelQuality":3,"TextureQuality":3,"EnvironmentQuality":3,"ParticleQuality":2,"SSRQuality":2,"VegetationQuality":3,"PostProcessQuality":3,"FrameRate":60,"VSync":false,"MotionBlur":false,"DynamicBlur":false,"TemperatureControl":1 }`,
+"NightMode.json":`{ "RenderScale":1.20,"TAASharpen":true,"SharpenIntensity":0.50,"ScreenPercentage":120,"UpsampleQuality":3,"ShadowQuality":3,"VolumetricQuality":3,"ModelQuality":3,"TextureQuality":3,"EnvironmentQuality":3,"ParticleQuality":3,"SSRQuality":3,"VegetationQuality":3,"PostProcessQuality":3,"FrameRate":60,"VSync":true,"MotionBlur":false,"DynamicBlur":false,"TemperatureControl":0 }`
 };
 
-/* Build UI */
-const grid = document.getElementById('preset-grid');
-Object.keys(presets).forEach(key=>{
-  const wrap=document.createElement('div');
-  wrap.style.display='flex';
-  wrap.style.flexDirection='column';
-  wrap.style.gap='8px';
-  const b=document.createElement('button');
-  b.className='btn';
-  b.textContent=key.replace('.json','');
-  b.onclick=()=>downloadPreset(key);
-  wrap.appendChild(b);
-  grid.appendChild(wrap);
+const grid = document.getElementById("preset-grid");
+
+Object.keys(presets).forEach(name=>{
+  const btn=document.createElement("button");
+  btn.className="btn";
+  btn.textContent=name.replace(".json","");
+  btn.onclick=()=>downloadPreset(name);
+  grid.appendChild(btn);
 });
 
 function downloadPreset(name){
-  const blob = new Blob([presets[name]],{type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = name;
-  document.body.appendChild(a);
+  const blob=new Blob([presets[name]],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download=name;
   a.click();
-  a.remove();
   URL.revokeObjectURL(url);
-  setTimeout(()=>alert('Preset downloaded to Downloads. Open FV File Explorer → Downloads → Copy → Paste ke\\nAndroid/data/com.kurogame.wutheringwaves/files/Config/ → Overwrite ClientGraphicsConfig.json'),120);
 }
 
-/* download all as zip (client-side) */
 async function downloadAll(){
-  // simple zip via JSZip would be heavy; we provide single-by-single quick download
-  if(!confirm('This will download 8 preset files one-by-one. Continue?')) return;
-  for(const k of Object.keys(presets)){
-    downloadPreset(k);
-    await new Promise(r=>setTimeout(r,350));
+  if(!confirm("Download all presets?")) return;
+  for(const n of Object.keys(presets)){
+    downloadPreset(n);
+    await new Promise(r=>setTimeout(r,300));
   }
-}
-
-/* show simple how-to */
-function showHow(){
-  alert('Open FV File Explorer → Downloads → long-press preset.json → Copy → Navigate to Android/data/com.kurogame.wutheringwaves/files/Config/ → Paste → Overwrite ClientGraphicsConfig.json → Launch game');
-}
-
-/* OPTIONAL: helper to change image quickly via URL (for advanced users) */
-function setWaifu(url){
-  const el=document.getElementById('waifu');
-  el.src=url;
-  el.onerror=()=>{alert('Cannot load image. Make sure URL is direct image link (ends with .png/.jpg/.webp) and publicly accessible.')};
 }
 </script>
 
